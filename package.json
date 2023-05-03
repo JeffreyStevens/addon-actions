@@ -170,6 +170,7 @@
     "@storybook/testing-library": "^0.0.14-next.2",
     "@types/redux-immutable-state-invariant": "^2.1.2",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "chromatic": "^6.17.3",
     "prop-types": "^15.8.1",
     "storybook": "^7.0.7",
     "webpack": "^5.81.0"

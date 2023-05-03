@@ -9,9 +9,6 @@ import {withActions} from '@storybook/addon-actions/decorator';
 import {IRouteNote} from "./RouteNote";
 import {store} from "./store/store";
 
-//------------------------------------------------------------------------------
-// RouteNoteDialogApp is exported wrapper application for component under test (RouteNoteDialog)
-//------------------------------------------------------------------------------
 export interface RouteNoteDialogProps {
     showRouteNoteDialog: boolean;
     handleCancelNote: () => void;
@@ -71,15 +68,12 @@ const emptyNote: IRouteNote = {
     comments: '',
 };
 
-//------------------------------------------------------------------------------
-// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
-//------------------------------------------------------------------------------
 const meta: Meta<typeof RouteNoteDialogApp> = {
-    title: 'Admin Unit/RouteNoteDialog', // how to refer to the component in the sidebar (optional)
-    component: RouteNoteDialogApp, // the component itself or a wrapper function
-    decorators: [withActions, (story) => <ReduxProvider store={store}>{story()}</ReduxProvider>],
-    // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-    // More on controls: https://storybook.js.org/docs/react/essentials/controls
+    title: 'Admin Unit/RouteNoteDialog',
+    component: RouteNoteDialogApp,
+    // TODO Bug in Storybook 7.0.7, add the 'withActions' decorator
+    // decorators: [withActions, (story) => <ReduxProvider store={store}>{story()}</ReduxProvider>],
+    decorators: [(story) => <ReduxProvider store={store}>{story()}</ReduxProvider>],
     argTypes: {
         showRouteNoteDialog: {control: 'boolean'},
         handleCancelNote: {action: 'handleCancelNote'},
@@ -94,10 +88,8 @@ const meta: Meta<typeof RouteNoteDialogApp> = {
         title: 'Edit Note',
     },
     parameters: {
-        // More on Story layout: https://storybook.js.org/docs/react/configure/story-layout
         layout: 'centered', // 'fullscreen', 'centered', 'padded'
         viewport: {defaultViewport: 'stsDialog'},
-        // See https://storybook.js.org/docs/react/essentials/actions
         actions: {
             handles: ['hover div[aria-label="dialog-sts-title"]', 'click div[aria-label="dialog-sts-title"]'],
         },
@@ -108,19 +100,11 @@ export default meta;
 
 type Story = StoryObj<typeof RouteNoteDialogApp>;
 
-//------------------------------------------------------------------------------
-// Stories
-//------------------------------------------------------------------------------
 export const Note: Story = {
     args: {},
     parameters: {},
 };
 
-//------------------------------------------------------------------------------
-// Interactions
-// See https://storybook.js.org/docs/react/writing-tests/interaction-testing
-// See https://storybook.js.org/docs/react/writing-stories/play-function#working-with-the-canvas
-//------------------------------------------------------------------------------
 export const DoneButton: Story = {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     render: (args, context) => <RouteNoteDialogApp {...args} />,
